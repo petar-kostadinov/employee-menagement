@@ -9,17 +9,12 @@ function App() {
   return (
     <>
       <Header />
-      {/* Main component  */}
+
       <main className="main">
         <section className="card users-container">
           <UserSearch />
 
           <UserList />
-
-          {/* New user button  */}
-          <button className="btn-add btn">
-            Add new user
-          </button>
 
           <Pagination />
         </section>
