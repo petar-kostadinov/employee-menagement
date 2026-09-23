@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./styles.css";
 
@@ -553,13 +554,8 @@ function App() {
 </div>
     </div> */}
       </main>
-      {/* Footer component  */}
-      <footer className="footer">
-        <p>
-          This site is designed to be used for
-          training purposes at SoftUni.
-        </p>
-      </footer>
+      
+      <Footer />
     </>
   );
 }
