@@ -1,16 +1,10 @@
-import './styles.css';
+import Header from "./components/Header";
+import "./styles.css";
 
 function App() {
   return (
     <>
-      {/* Header component */}
-      <header className="header">
-        <div className="logo">
-          <span className="course">
-            React Exercise - Components Deep Dive
-          </span>
-        </div>
-      </header>
+      <Header />
       {/* Main component  */}
       <main className="main">
         <section className="card users-container">
@@ -289,10 +283,18 @@ function App() {
                 className="limit"
                 defaultValue="5"
               >
-                <option defaultValue="5">5</option>
-                <option defaultValue="5">10</option>
-                <option defaultValue="5">15</option>
-                <option defaultValue="5">20</option>
+                <option defaultValue="5">
+                  5
+                </option>
+                <option defaultValue="5">
+                  10
+                </option>
+                <option defaultValue="5">
+                  15
+                </option>
+                <option defaultValue="5">
+                  20
+                </option>
               </select>
             </div>
             <p className="pages">1 - 1 of 1</p>
