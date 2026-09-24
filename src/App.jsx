@@ -16,6 +16,10 @@ function App() {
 
           <UserList />
 
+          <button className="btn-add btn">
+            Add new user
+          </button>
+
           <Pagination />
         </section>
       </main>
