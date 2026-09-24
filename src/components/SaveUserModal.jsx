@@ -1,12 +1,20 @@
-export default function SaveUserModal() {
+export default function SaveUserModal({
+  onClose,
+}) {
   return (
     <div class="overlay">
-      <div class="backdrop"></div>
+      <div
+        class="backdrop"
+        onClick={onClose}
+      ></div>
       <div class="modal">
         <div class="user-container">
           <header class="headers">
             <h2>Add User</h2>
-            <button class="btn close">
+            <button
+              class="btn close"
+              onClick={onClose}
+            >
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -178,6 +186,7 @@ export default function SaveUserModal() {
                 id="action-cancel"
                 class="btn"
                 type="button"
+                onClick={onClose}
               >
                 Cancel
               </button>

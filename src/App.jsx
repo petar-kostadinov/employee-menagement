@@ -36,6 +36,10 @@ function App() {
     setShowUserModal(true);
   };
 
+  const addUserCloseHandler = () => {
+    setShowUserModal(false);
+  };
+
   return (
     <>
       <Header />
@@ -53,7 +57,7 @@ function App() {
             Add new user
           </button>
 
-          {showSaveUserModal && <SaveUserModal />}
+          {showSaveUserModal && <SaveUserModal onClose={addUserCloseHandler} />}
 
           <Pagination />
         </section>
