@@ -5,7 +5,7 @@ export default function SaveUserModal() {
       <div class="modal">
         <div class="user-container">
           <header class="headers">
-            <h2>Edit User/Add User</h2>
+            <h2>Add User</h2>
             <button class="btn close">
               <svg
                 aria-hidden="true"

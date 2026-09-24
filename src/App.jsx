@@ -5,23 +5,37 @@ import Pagination from "./components/Pagination";
 import UserList from "./components/UserList";
 import UserSearch from "./components/UserSearch";
 import "./styles.css";
+import SaveUserModal from "./components/SaveUserModal";
 
 function App() {
   const [users, setUsers] = useState([]);
-  console.log(users);
-  
+  const [showSaveUserModal, setShowUserModal] =
+    useState(false);
 
   useEffect(() => {
-    fetch('https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users', {
-      headers: {
-        'apikey': 'sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ'
-      }
-    })
-    .then(res => res.json())
-    .then(data => setUsers(data))
-    .catch(error => console.error('Error fetching users:', error));
+    fetch(
+      "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users",
+      {
+        headers: {
+          apikey:
+            "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ",
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => setUsers(data))
+      .catch((error) =>
+        console.error(
+          "Error fetching users:",
+          error,
+        ),
+      );
   }, []);
-  
+
+  const addUserClickHandler = () => {
+    setShowUserModal(true);
+  };
+
   return (
     <>
       <Header />
@@ -32,9 +46,14 @@ function App() {
 
           <UserList users={users} />
 
-          <button className="btn-add btn">
+          <button
+            className="btn-add btn"
+            onClick={addUserClickHandler}
+          >
             Add new user
           </button>
+
+          {showSaveUserModal && <SaveUserModal />}
 
           <Pagination />
         </section>
