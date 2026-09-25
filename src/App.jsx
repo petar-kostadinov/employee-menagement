@@ -7,22 +7,18 @@ import UserSearch from "./components/UserSearch";
 import "./styles.css";
 import SaveUserModal from "./components/SaveUserModal";
 
+const baseUrl =
+  "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users";
+const apiKey =
+  "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ";
+
 function App() {
   const [users, setUsers] = useState([]);
   const [showSaveUserModal, setShowUserModal] =
     useState(false);
 
   useEffect(() => {
-    fetch(
-      "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users",
-      {
-        headers: {
-          apikey:
-            "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ",
-        },
-      },
-    )
-      .then((res) => res.json())
+    fetchUsers()
       .then((data) => setUsers(data))
       .catch((error) =>
         console.error(
@@ -38,6 +34,27 @@ function App() {
 
   const addUserCloseHandler = () => {
     setShowUserModal(false);
+  };
+
+  const submitUserHandler = async (user) => {
+    try {
+      await fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apiKey: apiKey,
+        },
+        body: JSON.stringify(user),
+      });
+
+      const updatedUsers = await fetchUsers();
+
+      setUsers(updatedUsers);
+    } catch (error) {
+      alert("Error adding users:" + error);
+    } finally {
+      setShowUserModal(false);
+    }
   };
 
   return (
@@ -57,7 +74,12 @@ function App() {
             Add new user
           </button>
 
-          {showSaveUserModal && <SaveUserModal onClose={addUserCloseHandler} />}
+          {showSaveUserModal && (
+            <SaveUserModal
+              onClose={addUserCloseHandler}
+              onSubmit={submitUserHandler}
+            />
+          )}
 
           <Pagination />
         </section>
@@ -66,6 +88,18 @@ function App() {
       <Footer />
     </>
   );
+}
+
+async function fetchUsers() {
+  const response = await fetch(baseUrl, {
+    headers: {
+      apiKey: apiKey,
+    },
+  });
+
+  const data = await response.json();
+
+  return data;
 }
 
 export default App;

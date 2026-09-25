@@ -1,18 +1,41 @@
 export default function SaveUserModal({
   onClose,
+  onSubmit,
 }) {
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const employee = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      phoneNumber: formData.get('phoneNumber'),
+      imageUrl: formData.get('imageUrl'),
+      address: {
+        country: formData.get('country'),
+        city: formData.get('city'),
+        street: formData.get('street'),
+        streetNumber: formData.get('streetNumber'),
+      }
+    };
+
+    onSubmit(employee);
+  };
+
   return (
-    <div class="overlay">
+    <div className="overlay">
       <div
-        class="backdrop"
+        className="backdrop"
         onClick={onClose}
       ></div>
-      <div class="modal">
-        <div class="user-container">
-          <header class="headers">
+      <div className="modal">
+        <div className="user-container">
+          <header className="headers">
             <h2>Add User</h2>
             <button
-              class="btn close"
+              className="btn close"
               onClick={onClose}
             >
               <svg
@@ -20,7 +43,7 @@ export default function SaveUserModal({
                 focusable="false"
                 data-prefix="fas"
                 data-icon="xmark"
-                class="svg-inline--fa fa-xmark"
+                className="svg-inline--fa fa-xmark"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"
@@ -32,15 +55,15 @@ export default function SaveUserModal({
               </svg>
             </button>
           </header>
-          <form>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="firstName">
+          <form onSubmit={submitHandler}>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="firstName">
                   First name
                 </label>
-                <div class="input-wrapper">
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                   </span>
                   <input
                     id="firstName"
@@ -49,13 +72,13 @@ export default function SaveUserModal({
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="lastName">
+              <div className="form-group">
+                <label htmlFor="lastName">
                   Last name
                 </label>
-                <div class="input-wrapper">
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                   </span>
                   <input
                     id="lastName"
@@ -66,12 +89,14 @@ export default function SaveUserModal({
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-wrapper">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="email">
+                  Email
+                </label>
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-envelope"></i>
+                    <i className="fa-solid fa-envelope"></i>
                   </span>
                   <input
                     id="email"
@@ -80,13 +105,13 @@ export default function SaveUserModal({
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="phoneNumber">
+              <div className="form-group">
+                <label htmlFor="phoneNumber">
                   Phone number
                 </label>
-                <div class="input-wrapper">
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-phone"></i>
+                    <i className="fa-solid fa-phone"></i>
                   </span>
                   <input
                     id="phoneNumber"
@@ -97,13 +122,13 @@ export default function SaveUserModal({
               </div>
             </div>
 
-            <div class="form-group long-line">
-              <label for="imageUrl">
+            <div className="form-group long-line">
+              <label htmlFor="imageUrl">
                 Image Url
               </label>
-              <div class="input-wrapper">
+              <div className="input-wrapper">
                 <span>
-                  <i class="fa-solid fa-image"></i>
+                  <i className="fa-solid fa-image"></i>
                 </span>
                 <input
                   id="imageUrl"
@@ -113,14 +138,14 @@ export default function SaveUserModal({
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="country">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="country">
                   Country
                 </label>
-                <div class="input-wrapper">
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-map"></i>
+                    <i className="fa-solid fa-map"></i>
                   </span>
                   <input
                     id="country"
@@ -129,11 +154,11 @@ export default function SaveUserModal({
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="city">City</label>
-                <div class="input-wrapper">
+              <div className="form-group">
+                <label htmlFor="city">City</label>
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-city"></i>
+                    <i className="fa-solid fa-city"></i>
                   </span>
                   <input
                     id="city"
@@ -144,12 +169,14 @@ export default function SaveUserModal({
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="street">Street</label>
-                <div class="input-wrapper">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="street">
+                  Street
+                </label>
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-map"></i>
+                    <i className="fa-solid fa-map"></i>
                   </span>
                   <input
                     id="street"
@@ -158,13 +185,13 @@ export default function SaveUserModal({
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="streetNumber">
+              <div className="form-group">
+                <label htmlFor="streetNumber">
                   Street number
                 </label>
-                <div class="input-wrapper">
+                <div className="input-wrapper">
                   <span>
-                    <i class="fa-solid fa-house-chimney"></i>
+                    <i className="fa-solid fa-house-chimney"></i>
                   </span>
                   <input
                     id="streetNumber"
@@ -177,14 +204,14 @@ export default function SaveUserModal({
             <div id="form-actions">
               <button
                 id="action-save"
-                class="btn"
+                className="btn"
                 type="submit"
               >
                 Save
               </button>
               <button
                 id="action-cancel"
-                class="btn"
+                className="btn"
                 type="button"
                 onClick={onClose}
               >
