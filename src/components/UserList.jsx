@@ -1,9 +1,19 @@
+import { useState } from "react";
 import Spiner from "./Spiner";
+import UserDetails from "./UserDetails";
 import UserListItem from "./UserListItem";
 
-export default function UserList({
-  users,
-}) {
+export default function UserList({ users }) {
+  const [selectedUserId, setSelectedUserId] =
+    useState(null);
+  const [showUserDetails, setShowUserDetails] =
+    useState(false);
+
+  const showUserDetailsHandler = (userId) => {
+    setSelectedUserId(userId);
+    setShowUserDetails(true);
+  };
+
   return (
     <div className="table-wrapper">
       {/* <Spiner /> */}
@@ -106,11 +116,17 @@ export default function UserList({
           </tr>
         </thead>
         <tbody>
-          
-        {users.map(user => <UserListItem key={user.id} {...user} />)}
-
+          {users.map((user) => (
+            <UserListItem
+              key={user.id}
+              onInfo={showUserDetailsHandler}
+              {...user}
+            />
+          ))}
         </tbody>
       </table>
+
+      {showUserDetails && <UserDetails userId={selectedUserId} />}
     </div>
   );
 }

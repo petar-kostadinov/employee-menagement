@@ -1,18 +1,43 @@
-export default function UserDetails() {
+import { useEffect, useState } from "react";
+import { fromIsoDate } from "../utils/dataTimeUtils";
+
+const baseUrl =
+  "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users";
+const apiKey =
+  "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ";
+
+export default function UserDetails({ userId }) {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    fetch(`${baseUrl}?id=eq.${userId}`, {
+      headers: {
+        apiKey: apiKey,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setUser(data[0]))
+      .catch((error) => {
+        console.error(
+          "Error fetching user data:",
+          error,
+        );
+      });
+  }, [userId]);
   return (
-    <div class="overlay">
-      <div class="backdrop"></div>
-      <div class="modal">
-        <div class="detail-container">
-          <header class="headers">
+    <div className="overlay">
+      <div className="backdrop"></div>
+      <div className="modal">
+        <div className="detail-container">
+          <header className="headers">
             <h2>User Detail</h2>
-            <button class="btn close">
+            <button className="btn close">
               <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
                 data-icon="xmark"
-                class="svg-inline--fa fa-xmark"
+                className="svg-inline--fa fa-xmark"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"
@@ -24,52 +49,57 @@ export default function UserDetails() {
               </svg>
             </button>
           </header>
-          <div class="content">
-            <div class="image-container">
+          <div className="content">
+            <div className="image-container">
               <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-                alt=""
-                class="image"
+                src={user.imageUrl}
+                alt={user.firstName}
+                className="image"
               />
             </div>
-            <div class="user-details">
+            <div className="user-details">
               <p>
-                User Id:{" "}
-                <strong>
-                  62bb0c0eda039e2fdccba57b
-                </strong>
+                User Id:
+                <strong>{user.id}</strong>
               </p>
               <p>
                 Full Name:
-                <strong> Peter Johnson </strong>
+                <strong>
+                  {" "}
+                  {user.firstName}{" "}
+                  {user.lastName}{" "}
+                </strong>
               </p>
               <p>
-                Email:{" "}
-                <strong>peter@abv.bg</strong>
+                Email:
+                <strong>{user.email}</strong>
               </p>
               <p>
-                Phone Number:{" "}
-                <strong>0812345678</strong>
+                Phone Number:
+                <strong>
+                  {user.phoneNumber}
+                </strong>
               </p>
               <p>
                 Address:
                 <strong>
-                  {" "}
-                  Bulgaria, Sofia, Aleksandar
-                  Malinov 78{" "}
+                  {user.address?.country},
+                  {user.address?.city},
+                  {user.address?.street},
+                  {user.address?.streetNumber}
                 </strong>
               </p>
 
               <p>
-                Created on:{" "}
+                Created on:
                 <strong>
-                  Wednesday, June 28, 2022
+                  {fromIsoDate(user.createdAt)}
                 </strong>
               </p>
               <p>
-                Modified on:{" "}
+                Modified on:
                 <strong>
-                  Thursday, June 29, 2022
+                  {fromIsoDate(user.updatedAt)}
                 </strong>
               </p>
             </div>
