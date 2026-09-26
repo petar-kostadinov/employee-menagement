@@ -6,7 +6,10 @@ const baseUrl =
 const apiKey =
   "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ";
 
-export default function UserDetails({ userId }) {
+export default function UserDetails({
+  userId,
+  onClose,
+}) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -26,12 +29,18 @@ export default function UserDetails({ userId }) {
   }, [userId]);
   return (
     <div className="overlay">
-      <div className="backdrop"></div>
+      <div
+        className="backdrop"
+        onClick={onClose}
+      ></div>
       <div className="modal">
         <div className="detail-container">
           <header className="headers">
             <h2>User Detail</h2>
-            <button className="btn close">
+            <button
+              className="btn close"
+              onClick={onClose}
+            >
               <svg
                 aria-hidden="true"
                 focusable="false"
