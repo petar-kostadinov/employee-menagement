@@ -1,24 +1,53 @@
+import { useEffect, useState } from "react";
+
+const baseUrl =
+  "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users";
+const apiKey =
+  "sb_publishable_EMg9mHWGTEL52tLkacHaIg_tUZthVvZ";
+
 export default function SaveUserModal({
   onClose,
   onSubmit,
+  edit,
+  userId,
 }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (userId) {
+      fetch(`${baseUrl}?id=eq.${userId}`, {
+        headers: {
+          apiKey: apiKey,
+        },
+      })
+        .then((Response) => Response.json())
+        .then((data) => {
+          if (data.length > 0) {
+            setUser(data[0]);
+          }
+        });
+    }
+  }, [userId]);
+
   const submitHandler = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
 
     const employee = {
-      firstName: formData.get('firstName'),
-      lastName: formData.get('lastName'),
-      email: formData.get('email'),
-      phoneNumber: formData.get('phoneNumber'),
-      imageUrl: formData.get('imageUrl'),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      phoneNumber: formData.get("phoneNumber"),
+      imageUrl: formData.get("imageUrl"),
       address: {
-        country: formData.get('country'),
-        city: formData.get('city'),
-        street: formData.get('street'),
-        streetNumber: formData.get('streetNumber'),
-      }
+        country: formData.get("country"),
+        city: formData.get("city"),
+        street: formData.get("street"),
+        streetNumber: formData.get(
+          "streetNumber",
+        ),
+      },
     };
 
     onSubmit(employee);
@@ -33,7 +62,9 @@ export default function SaveUserModal({
       <div className="modal">
         <div className="user-container">
           <header className="headers">
-            <h2>Add User</h2>
+            <h2>
+              {edit ? "Edit User" : "Add User"}
+            </h2>
             <button
               className="btn close"
               onClick={onClose}
@@ -69,6 +100,7 @@ export default function SaveUserModal({
                     id="firstName"
                     name="firstName"
                     type="text"
+                    defaultValue={user?.firstName || ''}
                   />
                 </div>
               </div>
@@ -84,6 +116,7 @@ export default function SaveUserModal({
                     id="lastName"
                     name="lastName"
                     type="text"
+                    defaultValue={user?.lastName || ''}
                   />
                 </div>
               </div>
@@ -102,6 +135,7 @@ export default function SaveUserModal({
                     id="email"
                     name="email"
                     type="text"
+                    defaultValue={user?.email || ''}
                   />
                 </div>
               </div>
@@ -117,6 +151,7 @@ export default function SaveUserModal({
                     id="phoneNumber"
                     name="phoneNumber"
                     type="text"
+                    defaultValue={user?.phoneNumber || ''}
                   />
                 </div>
               </div>
@@ -134,6 +169,7 @@ export default function SaveUserModal({
                   id="imageUrl"
                   name="imageUrl"
                   type="text"
+                  defaultValue={user?.imageUrl || ''}
                 />
               </div>
             </div>
@@ -151,6 +187,7 @@ export default function SaveUserModal({
                     id="country"
                     name="country"
                     type="text"
+                    defaultValue={user?.address?.country || ''}
                   />
                 </div>
               </div>
@@ -164,6 +201,7 @@ export default function SaveUserModal({
                     id="city"
                     name="city"
                     type="text"
+                    defaultValue={user?.address?.city || ''}
                   />
                 </div>
               </div>
@@ -182,6 +220,7 @@ export default function SaveUserModal({
                     id="street"
                     name="street"
                     type="text"
+                    defaultValue={user?.address?.street || ''}
                   />
                 </div>
               </div>
@@ -197,6 +236,7 @@ export default function SaveUserModal({
                     id="streetNumber"
                     name="streetNumber"
                     type="text"
+                    defaultValue={user?.address?.streetNumber || ''}
                   />
                 </div>
               </div>

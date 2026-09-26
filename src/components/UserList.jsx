@@ -3,6 +3,7 @@ import Spiner from "./Spiner";
 import UserDetails from "./UserDetails";
 import UserListItem from "./UserListItem";
 import DeleteUserModal from "./DeleteUserModal";
+import SaveUserModal from "./SaveUserModal";
 
 const baseUrl =
   "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users";
@@ -19,6 +20,8 @@ export default function UserList({
     useState(false);
   const [showUserDelete, setShowUserDelete] =
     useState(false);
+  const [showUserEdit, setShowUserEdit] =
+    useState(false);
 
   const showUserDetailsHandler = (userId) => {
     setSelectedUserId(userId);
@@ -33,6 +36,7 @@ export default function UserList({
   const hideModallHandler = () => {
     setShowUserDetails(false);
     setShowUserDelete(false);
+    setShowUserEdit(false);
     setSelectedUserId(null);
   };
 
@@ -58,6 +62,11 @@ export default function UserList({
     } finally {
       hideModallHandler();
     }
+  };
+
+  const editUserHandler = (userId) => {
+    setSelectedUserId(userId);
+    setShowUserEdit(true);
   };
 
   return (
@@ -162,12 +171,13 @@ export default function UserList({
           </tr>
         </thead>
         <tbody>
-          {users.length ===0  && <Spiner />}
+          {users.length === 0 && <Spiner />}
           {users.map((user) => (
             <UserListItem
               key={user.id}
               onInfo={showUserDetailsHandler}
               onDelete={showUserDeleteHandler}
+              onEdit={editUserHandler}
               {...user}
             />
           ))}
@@ -184,6 +194,13 @@ export default function UserList({
         <DeleteUserModal
           onClose={hideModallHandler}
           onDelete={deleteUserHandler}
+        />
+      )}
+      {showUserEdit && (
+        <SaveUserModal
+          userId={selectedUserId}
+          onClose={hideModallHandler}
+          edit
         />
       )}
     </div>
