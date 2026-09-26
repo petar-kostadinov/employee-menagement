@@ -100,7 +100,9 @@ export default function SaveUserModal({
                     id="firstName"
                     name="firstName"
                     type="text"
-                    defaultValue={user?.firstName || ''}
+                    defaultValue={
+                      user?.firstName || ""
+                    }
                   />
                 </div>
               </div>
@@ -116,7 +118,9 @@ export default function SaveUserModal({
                     id="lastName"
                     name="lastName"
                     type="text"
-                    defaultValue={user?.lastName || ''}
+                    defaultValue={
+                      user?.lastName || ""
+                    }
                   />
                 </div>
               </div>
@@ -135,7 +139,9 @@ export default function SaveUserModal({
                     id="email"
                     name="email"
                     type="text"
-                    defaultValue={user?.email || ''}
+                    defaultValue={
+                      user?.email || ""
+                    }
                   />
                 </div>
               </div>
@@ -151,7 +157,9 @@ export default function SaveUserModal({
                     id="phoneNumber"
                     name="phoneNumber"
                     type="text"
-                    defaultValue={user?.phoneNumber || ''}
+                    defaultValue={
+                      user?.phoneNumber || ""
+                    }
                   />
                 </div>
               </div>
@@ -169,7 +177,9 @@ export default function SaveUserModal({
                   id="imageUrl"
                   name="imageUrl"
                   type="text"
-                  defaultValue={user?.imageUrl || ''}
+                  defaultValue={
+                    user?.imageUrl || ""
+                  }
                 />
               </div>
             </div>
@@ -187,7 +197,9 @@ export default function SaveUserModal({
                     id="country"
                     name="country"
                     type="text"
-                    defaultValue={user?.address?.country || ''}
+                    defaultValue={
+                      user?.address?.country || ""
+                    }
                   />
                 </div>
               </div>
@@ -201,7 +213,9 @@ export default function SaveUserModal({
                     id="city"
                     name="city"
                     type="text"
-                    defaultValue={user?.address?.city || ''}
+                    defaultValue={
+                      user?.address?.city || ""
+                    }
                   />
                 </div>
               </div>
@@ -220,7 +234,9 @@ export default function SaveUserModal({
                     id="street"
                     name="street"
                     type="text"
-                    defaultValue={user?.address?.street || ''}
+                    defaultValue={
+                      user?.address?.street || ""
+                    }
                   />
                 </div>
               </div>
@@ -236,7 +252,10 @@ export default function SaveUserModal({
                     id="streetNumber"
                     name="streetNumber"
                     type="text"
-                    defaultValue={user?.address?.streetNumber || ''}
+                    defaultValue={
+                      user?.address
+                        ?.streetNumber || ""
+                    }
                   />
                 </div>
               </div>
@@ -247,7 +266,7 @@ export default function SaveUserModal({
                 className="btn"
                 type="submit"
               >
-                Save
+                {edit ? "Update" : "Create"}
               </button>
               <button
                 id="action-cancel"

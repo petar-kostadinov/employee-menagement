@@ -69,6 +69,34 @@ export default function UserList({
     setShowUserEdit(true);
   };
 
+  const updateUserHandler = async (userData) => {
+    try {
+      await fetch(
+        `${baseUrl}?id=eq.${selectedUserId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            apiKey: apiKey,
+          },
+          body: JSON.stringify({
+            ...userData,
+            updatedAt: new Date().toISOString(),
+          }),
+        },
+      );
+
+      onUserUpdate();
+    } catch (error) {
+      console.error(
+        "Failed to update user:",
+        error,
+      );
+    } finally {
+      hideModallHandler();
+    }
+  };
+
   return (
     <div className="table-wrapper">
       {/* <Spiner /> */}
@@ -200,6 +228,7 @@ export default function UserList({
         <SaveUserModal
           userId={selectedUserId}
           onClose={hideModallHandler}
+          onSubmit={updateUserHandler}
           edit
         />
       )}
