@@ -6,6 +6,7 @@ import UserList from "./components/UserList";
 import UserSearch from "./components/UserSearch";
 import "./styles.css";
 import SaveUserModal from "./components/SaveUserModal";
+import { fetchUsers } from "./api/usersApi";
 
 const baseUrl =
   "https://ufieaoipmfrdsaeuqiiw.supabase.co/rest/v1/users";
@@ -57,6 +58,18 @@ function App() {
     }
   };
 
+  const userUpdateHandler = async () => {
+    try {
+      const updatedUsers = await fetchUsers();
+      setUsers(updatedUsers);
+    } catch (error) {
+      console.error(
+        "Error updating users:",
+        error,
+      );
+    }
+  };
+
   return (
     <>
       <Header />
@@ -65,7 +78,10 @@ function App() {
         <section className="card users-container">
           <UserSearch />
 
-          <UserList users={users} />
+          <UserList
+            users={users}
+            onUserUpdate={userUpdateHandler}
+          />
 
           <button
             className="btn-add btn"
@@ -88,18 +104,6 @@ function App() {
       <Footer />
     </>
   );
-}
-
-async function fetchUsers() {
-  const response = await fetch(baseUrl, {
-    headers: {
-      apiKey: apiKey,
-    },
-  });
-
-  const data = await response.json();
-
-  return data;
 }
 
 export default App;
