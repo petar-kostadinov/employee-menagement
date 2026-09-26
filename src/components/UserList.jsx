@@ -162,6 +162,7 @@ export default function UserList({
           </tr>
         </thead>
         <tbody>
+          {users.length ===0  && <Spiner />}
           {users.map((user) => (
             <UserListItem
               key={user.id}
